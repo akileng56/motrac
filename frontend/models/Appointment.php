@@ -4,18 +4,15 @@ namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
-use common\models\User;
+use frontend\models\Consultation;
 use backend\models\UserModule;
 
 /**
- * Signup form
+ * Appointment form
  */
-class SignupForm extends Model {
+class Appointment extends Model {
 
-    public $password;
-    public $phonenumber;
-    public $email;
-    public $fullname;
+    public $dayofweek;
 
 	
     /**
@@ -23,27 +20,18 @@ class SignupForm extends Model {
      */
     public function rules() {
         return [
-            [['phonenumber'], 'trim'],
-            [['password', 'phonenumber','fullname'], 'required'],
-            [['phonenumber', 'password'], 'string', 'min' => 2, 'max' => 255],
-            [['phonenumber'], 'string', 'min' => 10, 'max' => 25],
-            ['email', 'email'],
-            [['email'], 'string', 'max' => 255],
-            ['password', 'string', 'min' => 6],
+            [['$dayofweek'], 'required'],
+            [['$dayofweek'], 'string', 'min' => 2, 'max' => 255],
         ];
     }
 
-    /**
-     * Signs user up.
-     *
-     * @return User|null the saved model or null if saving fails
-     */
-    public function signup($role) {
+
+    public function newAppointment() {
         if (!$this->validate()) {
             return null;
         }
 
-        $user = new User();
+        $user = new Consultation();
         $user->setAttribute('email', $this->email);
         $user->setAttribute('phonenumber', $this->phonenumber);
         $user->setAttribute('fullname', $this->fullname);

@@ -10,9 +10,9 @@ use yii\helpers\Url;
 
 <ul id="sidebarnav">
     <li>
-        <a href="<?= Url::to(['specialities']); ?>" class="waves-effect">
+        <a href="<?= Url::to(['appointment']); ?>" class="waves-effect">
             <i class="fa fa-clock-o m-r-10" aria-hidden="true"></i>
-            Consult Now
+            Book an Appointment
         </a>
     </li>
     <li>
@@ -24,7 +24,7 @@ use yii\helpers\Url;
     <li>
         <a href="<?= Url::to(['family']); ?>" class="waves-effect">
             <i class="fa fa-info-circle m-r-10" aria-hidden="true"></i>
-            Family
+            Profile
         </a>
     </li>
 </ul>

@@ -19,7 +19,7 @@ $searchModel = new SearchForm();
 <head>
     <meta charset="utf-8">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?> QWIKMED | UGANDA </title>
+    <title><?= Html::encode($this->title) ?> MOTRAC | UGANDA </title>
     <link rel="icon" href="<?= Yii::$app->homeUrl ?>html/app/img/logo.png">
     <?php $this->head() ?>
 </head>

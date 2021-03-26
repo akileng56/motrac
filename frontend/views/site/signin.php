@@ -27,6 +27,12 @@ $login = new LoginForm();
                     <table class="table">
                         <tr>
                             <td>
+                                <?= $form->field($user, 'fullname')->label('FullName'); ?>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
                                 <?= $form->field($user, 'phonenumber')->label('Phone Number'); ?>
                             </td>
 

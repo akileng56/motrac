@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use backend\models\Doctor;
 use backend\models\Speciality;
+use frontend\models\Consultation;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -39,7 +40,7 @@ class SiteController extends Controller
                 'rules' => [
                     [
                         'actions' => ['index', 'login', 'home','signin', 'signup', 'logout','register','newmembership','membership',
-                            'specialities','family','my-consultations','partners','about','services','blog','contact','cancel',
+                            'specialities','family','my-consultations','partners','about','appointment','blog','contact','cancel',
                             'doctors','search','error','request-password-reset',
                             'reset-password' ],
                         'allow' => true
@@ -105,7 +106,7 @@ class SiteController extends Controller
                     $page = Url::to(['doctor/schedule']);
                     break;
                 default:
-                    $page = Url::to(['specialities']);
+                    $page = Url::to(['my-consultations']);
                     break;
             }
             return $this->redirect($page);
@@ -220,7 +221,7 @@ class SiteController extends Controller
         $model = new SignupForm();
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup('user')) {
+            if ($user = $model->signup('patient')) {
                 Yii::$app->session->setFlash('success', 'Account created successfully...');
                 $this->goHome();
             } else {
@@ -297,18 +298,29 @@ class SiteController extends Controller
 
     public function actionMyConsultations()
     {
-        return $this->render('myconsultations');
+        $user = Yii::$app->user->id;
+        $consultations = Consultation::find()->where(['patient_id' => $user])->asArray()->all();
+        return $this->render('myconsultations',[
+            'consultations' => $consultations
+        ]);
     }
 
-    public function actionDoctors($id)
+    public function actionAppointment()
     {
-        $speciality = Speciality::findOne($id);
-        $doctors = Doctor::find()->where(['speciality' => $id ])->asArray()->all();
+        $model = new Consultation();
 
-        return $this->render('../users/doctor_speciality',[
-            'doctors' => $doctors,
-            'speciality' => $speciality->name
-        ]);
+        if($model->load(Yii::$app->request->post())){
+            $model->patient_id = Yii::$app->user->id;
+            $model->status = 'Pending';
+            $model->date_time = time();
+            $model->save();
+
+            return $this->redirect(Url::to(['my-consultations']));
+        } else {
+            return $this->render('appointment', [
+                'model' => $model
+            ]);
+        }
     }
 
     public function actionSearch()

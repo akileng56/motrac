@@ -3,17 +3,9 @@
  * Created by PhpStorm.
  * User: AKILENG
  * Date: 5/22/2020
- * Time: 3:20 AM
- */
-?>
-
-<?php
-/**
- * Created by PhpStorm.
- * User: AKILENG
- * Date: 5/22/2020
  * Time: 3:02 AM
  */
+use yii\helpers\Url;
 ?>
 
 <div class="row page-titles">
@@ -31,47 +23,25 @@
                     <table class="table stylish-table">
                         <thead>
                         <tr>
-                            <th colspan="2">Doctor's Names</th>
+                            <th>Appointment Day</th>
                             <th>Status</th>
-                            <th>Date</th>
+                            <th>Created On</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td style="width:50px;"><span class="round">S</span></td>
-                            <td>
-                                <h6>Sunil Joshi</h6><small class="text-muted">Web Designer</small></td>
-                            <td>Elite Admin</td>
-                            <td>$3.9K</td>
-                        </tr>
-                        <tr>
-                            <td><span class="round round-success">B</span></td>
-                            <td>
-                                <h6>Bhavesh patel</h6><small class="text-muted">Developer</small></td>
-                            <td>MedicalPro Theme</td>
-                            <td>$12.9K</td>
-                        </tr>
-                        <tr>
-                            <td><span class="round round-primary">N</span></td>
-                            <td>
-                                <h6>Nirav Joshi</h6><small class="text-muted">Frontend Eng</small></td>
-                            <td>Elite Admin</td>
-                            <td>$10.9K</td>
-                        </tr>
-                        <tr>
-                            <td><span class="round round-warning">M</span></td>
-                            <td>
-                                <h6>Micheal Doe</h6><small class="text-muted">Content Writer</small></td>
-                            <td>Helping Hands</td>
-                            <td>$12.9K</td>
-                        </tr>
-                        <tr>
-                            <td><span class="round round-danger">N</span></td>
-                            <td>
-                                <h6>Johnathan</h6><small class="text-muted">Graphic</small></td>
-                            <td>Digital Agency</td>
-                            <td>$2.6K</td>
-                        </tr>
+                            <?php foreach ($consultations AS $consultation) { ?>
+                                <tr>
+                                    <td><h6 class="text-capitalize"><?= $consultation['day']; ?> </h6></td>
+                                    <td><?= $consultation['status']; ?> </td>
+                                    <td><?= date('m/d/Y',$consultation['date_time']); ?> </td>
+                                    <td>
+                                        <a href='<?= Url::to(['site/view-consultation', 'id' => $consultation['consultation_id']]); ?>' class='btn btn-warning'>
+                                            <i class='fa fa-eye'></i> View Details
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
                         </tbody>
                     </table>
                 </div>

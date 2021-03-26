@@ -21,6 +21,9 @@ use yii\web\IdentityInterface;
  * @property string $email
  * @property integer $created_at
  * @property integer $updated_at
+ * @property string $fullname
+ * @property string $gender
+ * @property integer $dob
  *
  */
 class User extends ActiveRecord implements IdentityInterface {
@@ -53,15 +56,16 @@ class User extends ActiveRecord implements IdentityInterface {
     public function rules() {
         return [
 
-            [['auth_key', 'password_hash',  'role'], 'required'],
-            [[ 'password_hash', 'password_reset_token','email'], 'string', 'max' => 255],
-            [[ 'created_at', 'updated_at'], 'integer'],
+            [['auth_key', 'password_hash',  'role', 'fullname'], 'required'],
+            [[ 'password_hash', 'password_reset_token','email','fullname'], 'string', 'max' => 255],
+            [[ 'created_at', 'updated_at','dob'], 'integer'],
             [['auth_key'], 'string', 'max' => 32],
             [['phonenumber', 'role'], 'string', 'max' => 50],
             [['phonenumber','email'], 'unique'],
             [['email'], 'email'],
             [['password_reset_token'], 'unique'],
-            [[ 'created_at', 'updated_at'], 'default', 'value' => time()],
+            [[ 'created_at', 'updated_at','dob'], 'default', 'value' => time()],
+            [[ 'gender'], 'default', 'value' => 'Male']
         ];
     }
 
@@ -71,6 +75,9 @@ class User extends ActiveRecord implements IdentityInterface {
     public function attributeLabels() {
         return [
             'id' => 'ID',
+            'fullname' => 'FullName',
+            'gender' => 'Gender',
+            'dob' => 'Date Of Birth',
             'auth_key' => 'Auth Key',
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',

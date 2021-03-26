@@ -17,7 +17,7 @@ $user = Yii::$app->user->identity;
 <head>
     <meta charset="utf-8">
     <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?> QWIKMED | UGANDA </title>
+    <title><?= Html::encode($this->title) ?> MOTRAC | UGANDA </title>
     <link rel="icon" href="<?= Yii::$app->homeUrl ?>html/app/img/logo.png">
     <?php $this->head() ?>
 </head>
@@ -55,7 +55,7 @@ $user = Yii::$app->user->identity;
                     <!-- Logo text -->
                     <span>
                             <!-- dark Logo text -->
-                            QWIKMED
+                            MOTRAC
                     </span>
                 </a>
             </div>
@@ -147,7 +147,7 @@ $user = Yii::$app->user->identity;
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer text-center">
-            © 2020 QwikMed | Uganda, A product of belaCals Ltd
+            © 2021 Motrac | Uganda, Designed by Magnum Classic Solutions Ltd
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->

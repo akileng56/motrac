@@ -13,6 +13,7 @@ use Yii;
  * @property string $status
  * @property integer $date_time
  * @property integer $triage_id
+ * @property string $day
  */
 class Consultation extends \yii\db\ActiveRecord
 {
@@ -30,9 +31,11 @@ class Consultation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['doctor_id', 'patient_id', 'status', 'date_time', 'triage_id'], 'required'],
+            [['patient_id', 'status', 'date_time'], 'required'],
             [['doctor_id', 'patient_id', 'date_time', 'triage_id'], 'integer'],
             [['status'], 'string', 'max' => 60],
+            [['day'], 'string', 'max' => 200],
+            [[ 'date_time'], 'default', 'value' => time()]
         ];
     }
 
@@ -48,6 +51,7 @@ class Consultation extends \yii\db\ActiveRecord
             'status' => 'Status',
             'date_time' => 'Date Time',
             'triage_id' => 'Triage ID',
+            'day' => 'Day'
         ];
     }
 }
