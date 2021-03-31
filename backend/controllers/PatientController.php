@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use common\models\User;
 use Yii;
 use common\models\Patient;
 use yii\data\ActiveDataProvider;
@@ -35,7 +36,7 @@ class PatientController extends Controller
      */
     public function actionAll()
     {
-        $patients = Patient::find()->asArray()->all();
+        $patients = User::find()->where(['role'=>'patient'])->asArray()->all();
 
         return $this->render('index', [
             'patients' => $patients,

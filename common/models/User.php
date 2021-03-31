@@ -27,6 +27,7 @@ use yii\web\IdentityInterface;
  *
  */
 class User extends ActiveRecord implements IdentityInterface {
+    public $dob_holder;
 
 	/***
      * Stations where I work from/Where a client is attached to
@@ -64,8 +65,9 @@ class User extends ActiveRecord implements IdentityInterface {
             [['phonenumber','email'], 'unique'],
             [['email'], 'email'],
             [['password_reset_token'], 'unique'],
-            [[ 'created_at', 'updated_at','dob'], 'default', 'value' => time()],
-            [[ 'gender'], 'default', 'value' => 'Male']
+            [[ 'created_at', 'updated_at' ], 'default', 'value' => time()],
+            [[ 'gender'], 'default', 'value' => 'Male'],
+            [[ 'dob'], 'default', 'value' => null ],
         ];
     }
 

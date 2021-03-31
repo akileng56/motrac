@@ -10,11 +10,12 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\HelperMethods;
+use frontend\models\Consultation;
 
 /**
  * SpecialityController implements the CRUD actions for Speciality model.
  */
-class SpecialityController extends Controller
+class AppointmentController extends Controller
 {
     /**
      * @inheritdoc
@@ -32,15 +33,14 @@ class SpecialityController extends Controller
     }
 
     /**
-     * Lists all Speciality models.
+     * Lists all Appointments
      * @return mixed
      */
     public function actionAll()
     {
-        $Specialities =  Speciality::find()->asArray()->all();
-
-        return $this->render('index', [
-            'specialities' => $Specialities,
+        $appointments = Consultation::find()->where(['status' => 'Pending'])->asArray()->all();
+        return $this->render('../appointment/index', [
+            'appointments' => $appointments,
         ]);
     }
 

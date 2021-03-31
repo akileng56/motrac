@@ -91,8 +91,6 @@ $user = Yii::$app->user->identity;
                                 <li>
                                 <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#"><i class="ti-wallet"></i> Wallet Balance</a></li>
-                                <li role="separator" class="divider"></li>
                                 <li><a href="<?= Url::to(['site/logout']); ?>"><i class="fa fa-power-off"></i> Logout</a></li>
                             </ul>
                         </div>

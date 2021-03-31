@@ -16,6 +16,9 @@ class SignupForm extends Model {
     public $phonenumber;
     public $email;
     public $fullname;
+    public $role;
+    public $dob;
+    public $gender;
 
 	
     /**
@@ -49,12 +52,14 @@ class SignupForm extends Model {
         $user->setAttribute('fullname', $this->fullname);
         $user->setAttribute('role', $role);
         $user->setAttribute('created_at', time());
+        //$user->setAttribute('dob', strtotime($this->dob));
+        $user->setAttribute('gender',$this->gender);
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user->password_reset_token = '';
 
 
-        if ($user->validate() && $user->save()) {
+        if ($user->validate() && $user->save(false)) {
             return $user;
         } else {
             Yii::warning("loaded.." . print_r($user->getErrors(), true));

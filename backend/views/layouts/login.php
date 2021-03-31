@@ -20,7 +20,7 @@ $user = Yii::$app->user->identity;
 <html lang="en">
     <head>
         <?= Html::csrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?> QWIKMED | UGANDA</title>
+        <title><?= Html::encode($this->title) ?> MOTRAC | UGANDA</title>
         <?php $this->head() ?>
         <style>
             body {

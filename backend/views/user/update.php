@@ -6,6 +6,10 @@ use yii\bootstrap\ActiveForm;
 
 $this->title = 'Update Member details';
 ?>
+<section class="user-index qwikmed-header-text">
+    <h1>Update user</h1>
+    <small>Update user details in the system</small>
+</section>
 <div class="row">
     <?php
     $form = ActiveForm::begin(['id' => 'form-signup']);
@@ -13,6 +17,10 @@ $this->title = 'Update Member details';
     ?>
     <table class="table">
         <tr>
+            <td>
+                <?= $form->field($model, 'fullname')->label('FullName'); ?>
+            </td>
+
             <td>
                 <?= $form->field($model, 'phonenumber')->label('Phone Number'); ?>
             </td>
@@ -27,10 +35,23 @@ $this->title = 'Update Member details';
             <?=
             $form->field($model, 'role')
                 ->dropDownList(
-                    ['admin' => 'Administrator', 'user' => 'User'],
+                    [
+                        'patient' => 'Patient',
+                        'admin' => 'Administrator',
+                        'doctor' => 'Doctor'
+                    ],
                     ['prompt'=>'']
                 );
             ?>
+        </td>
+        <td>
+            <?= $form->field($model, 'gender')->dropDownList([
+                    'Male' => 'Male',
+                    'Female' => 'Female'
+            ])->label('Gender'); ?>
+        </td>
+        <td>
+            <?= $form->field($model, 'dob')->label('Date Of Birth'); ?>
         </td>
         </tr>
 

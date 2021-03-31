@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="form-signin">
     <div class="qwikmed-backend-logo">
         <img src="<?= HELP_BASE_PATH ?>html/app/img/logo.png" width="auto">
-        <span>QWIKMED</span>
+        <span>MOTRAC</span>
     </div>
 
     <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>

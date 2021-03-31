@@ -2,86 +2,58 @@
 use common\models\HelpToolDropdowns;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use yii\helpers\ArrayHelper;
+use kartik\date\DatePicker;
+use yii\helpers\Url;
 
-//Business Units
-$units = HelpToolDropdowns::getListOfBusinessUnits();
-
-$this->title = 'Register a new Member of Staff';
+$this->title = 'Register a new User';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<style>
-    .error-summary{
-        background:#faa;
-        border:1px solid maroon;
-        color:red;
-    }
-    textarea,
-    select,
-    input{
-        border-radius: 0px !important;
-    }
-</style>
+
 <div class="site-signup">
     <div class="row">
         <?php
-        $form = ActiveForm::begin(['id' => 'form-signup']);
-        echo $form->errorSummary($model, ['header' => '<b>We found some errors. Please correct these:</b>']);
+        $form = ActiveForm::begin(['action'=>Url::to(['user/register']),'id' => 'form-signup']);
         ?>
         <table class="table">
             <tr>
                 <td>
-                    <?= $form->field($model, 'firstname')->label('First Name'); ?>
+                    <?= $form->field($model, 'fullname')->label('FullName'); ?>
                 </td>
                 <td>
-                    <?= $form->field($model, 'lastname')->label('Last Name'); ?>
-                </td>
-                <td>
-                    <?=
-                    $form->field($model, 'category')->radioList(
-                            ['staff_support' => 'Support Staff',
-                                'staff_user' => 'System User'])
-                    ?>
-                </td>
-            </tr>
-            <tr>
-                <td><?= $form->field($model, 'tin_number') ?></td>
-                <td><?= $form->field($model, 'telephone1')->label('Primary Telephone No.'); ?></td>
-                <td><?= $form->field($model, 'telephone2')->label('Alternative Telephone No.') ?></td>
-            </tr>
-            <tr>
-                <td>
-                    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
-                </td>
-                <td>
-                    <?= $form->field($model, 'email') ?>
+                    <?= $form->field($model, 'role')->dropDownList([
+                            'patient' => 'Patient',
+                            'admin' => 'Administrator',
+                            'doctor' => 'Doctor'
+
+                    ])->label('User Role'); ?>
                 </td>
 
             </tr>
             <tr>
                 <td>
-                    <?=
-                    $form->field($model, 'escalation_level')->radioList(
-                            ['1' => 'Level 1',
-                                '2' => 'Level 2',
-                                '3' => 'Level 3'])
-                    ?>
+                    <?= $form->field($model, 'gender')->dropDownList([
+                        'Male' => 'Male',
+                        'Female' => 'Female'
+
+                    ])->label('Gender'); ?>
                 </td>
                 <td>
-                    <?= $form->field($model, 'business_id')->dropDownList(ArrayHelper::map($units, 'id', 'name'))->label('Business Unit'); ?>
-                </td>
-                <td>
+                    <?= $form->field($model, 'password_reset_token')->widget(\yii\jui\DatePicker::classname(), [
+                        //'language' => 'ru',
+                        //'dateFormat' => 'yyyy-MM-dd',
+                    ]) ?>
 
                 </td>
+
+
+            </tr>
+            <tr>
+                <td> <?= $form->field($model, 'email') ?> </td>
+                <td> <?= $form->field($model, 'phonenumber')->label('Telephone No.'); ?></td>
             </tr>
             <tr>
                 <td>
-                    <?= Html::submitButton('Register Staff Member', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?> 
-                </td>
-                <td colspan="2">
-                    <?= $form->field($model, 'password')->hiddenInput()->label(false); ?>
-                    <?= $form->field($model, 'auth_agent')->hiddenInput(['value' => 'localdb'])->label(false); ?>
-                    <?= $form->field($model, 'reg_mode')->hiddenInput(['value' => 'self'])->label(false); ?>
+                    <?= Html::submitButton('Register New User', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
                 </td>
             </tr>
         </table>

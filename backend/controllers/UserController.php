@@ -57,19 +57,24 @@ class UserController extends \yii\web\Controller {
      * @return type
      */
     public function actionRegister() {
-        $model = new SignupForm();
+        $model = new User();
 
         if ($model->load(Yii::$app->request->post())) {
-            //Pick The password
-            $pass = $model->password;
-            if ($user = $model->signup()) {
+            //Set default password
+            $model->setPassword($model->phonenumber);
+            $model->dob = strtotime($model->password_reset_token);
+            $model->generateAuthKey();
+            $model->password_reset_token = '';
+
+            if ($model->save()) {
                 //Welcome Message
                 Yii::$app->session->setFlash('success', 'You have successfully registered a user');
 
                 return $this->redirect(Url::to(['user/all-users']));
+            } else {
+                return $this->redirect(Url::to(['patient/all']));
             }
         } else {
-            $model->password = 'pass3@rd';
             return $this->render('register', [
                 'model' => $model,
             ]);
