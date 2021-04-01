@@ -10,23 +10,25 @@ use yii\helpers\ArrayHelper;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="speciality-form">
+<div class="appointment-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput() ?>
+    <?= $form->field($model, 'day')->dropDownList([
+        'monday' => 'Monday',
+        'tuesday' => 'Tuesday',
+        'wednesday' => 'Wednesday',
+        'thursday' => 'Thursday',
+        'friday' => 'Friday'
+    ])->label('Select An Appointment Day') ?>
 
-    <?= $form->field($model, 'upper_bound_fee')->textInput() ?>
-
-    <?= $form->field($model, 'lower_bound_fee')->textInput() ?>
-
-    <?= $form->field($model, 'symptoms')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map($symptoms, 'symptom_id', 'name'),
-        'options' => ['multiple' => true,'placeholder' => 'Select a symptom...'],
+    <?= $form->field($model, 'patient_id')->widget(Select2::classname(), [
+        'data' => ArrayHelper::map($patients, 'id', 'fullname'),
+        'options' => ['multiple' => false,'placeholder' => 'Select a patient...'],
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ]);
+    ])->label('Patient Name');
     ?>
 
     <div class="form-group">

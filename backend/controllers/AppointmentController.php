@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use backend\models\SpecialitySymptom;
 use backend\models\Symptom;
+use common\models\User;
 use Yii;
 use backend\models\Speciality;
 use yii\web\Controller;
@@ -11,6 +12,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\HelperMethods;
 use frontend\models\Consultation;
+use yii\filters\AccessControl;
 
 /**
  * SpecialityController implements the CRUD actions for Speciality model.
@@ -23,6 +25,15 @@ class AppointmentController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['admin'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -63,18 +74,20 @@ class AppointmentController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Speciality();
+        $model = new Consultation();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $this->saveSpecialitySymptom($model);
+        if ($model->load(Yii::$app->request->post())) {
+            $model->status = 'Pending';
+            $model->date_time = time();
+            $model->save(false);
 
             return $this->redirect(['all']);
         } else {
-            $symptoms = Symptom::find()->asArray()->all();
+            $patients = User::find()->where(['role' => 'patient'])->asArray()->all();
 
             return $this->render('create', [
                 'model' => $model,
-                'symptoms' => $symptoms,
+                'patients' => $patients,
             ]);
         }
     }

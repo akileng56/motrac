@@ -35,7 +35,8 @@ class Consultation extends \yii\db\ActiveRecord
             [['doctor_id', 'patient_id', 'date_time', 'triage_id'], 'integer'],
             [['status'], 'string', 'max' => 60],
             [['day'], 'string', 'max' => 200],
-            [[ 'date_time'], 'default', 'value' => time()]
+            [[ 'date_time'], 'default', 'value' => time()],
+            [[ 'status'], 'default', 'value' => 'Pending']
         ];
     }
 
