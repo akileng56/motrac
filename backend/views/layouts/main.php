@@ -83,7 +83,7 @@ $user = Yii::$app->user->identity;
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span><i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                <?= $user ? User::findIdentity($user->getId())->phonenumber : '' ?>
+                                <?= $user ? User::findIdentity($user->getId())->fullname : '' ?>
                             </span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right animated flipInY">

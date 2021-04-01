@@ -24,6 +24,7 @@ use yii\helpers\Html;
                 <th>Appointment Day</th>
                 <th>Created on</th>
                 <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -37,6 +38,13 @@ use yii\helpers\Html;
                         <a href='<?= Url::to(['appointment/update', 'id' => $appointment['consultation_id']]); ?>' class='btn btn-default'>
                             <i class='fa fa-pencil'></i> Edit
                         </a>
+                    </td>
+                    <td>
+                        <?php if($appointment['status'] == 'Pending') {?>
+                        <a href='<?= Url::to(['appointment/approve', 'id' => $appointment['consultation_id']]); ?>' class='btn btn-warning'>
+                            <i class='fa fa-check'></i> Approve
+                        </a>
+                        <?php } ?>
                     </td>
                 </tr>
             <?php } ?>

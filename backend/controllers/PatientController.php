@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\User;
+use frontend\models\Consultation;
 use Yii;
 use common\models\Patient;
 use yii\data\ActiveDataProvider;
@@ -60,8 +61,12 @@ class PatientController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $consultations = Consultation::find()->where(['patient_id' => $id])->asArray()->all();
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'consultations' => $consultations
         ]);
     }
 
@@ -132,7 +137,7 @@ class PatientController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Patient::findOne($id)) !== null) {
+        if (($model = User::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

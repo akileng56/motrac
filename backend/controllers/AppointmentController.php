@@ -49,7 +49,7 @@ class AppointmentController extends Controller
      */
     public function actionAll()
     {
-        $appointments = Consultation::find()->where(['status' => 'Pending'])->asArray()->all();
+        $appointments = Consultation::find()->asArray()->all();
         return $this->render('../appointment/index', [
             'appointments' => $appointments,
         ]);
@@ -79,7 +79,7 @@ class AppointmentController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->status = 'Pending';
             $model->date_time = time();
-            $model->save(false);
+            $model->save();
 
             return $this->redirect(['all']);
         } else {
@@ -145,19 +145,28 @@ class AppointmentController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Speciality::findOne($id)) !== null) {
+        if (($model = Consultation::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 
-    public function saveSpecialitySymptom($model){
-        foreach($model->symptoms as $value){
-            $specialitySymptom = new SpecialitySymptom();
-            $specialitySymptom->speciality_id = $model->speciality_id;
-            $specialitySymptom->symptom_id = $value;
-            $specialitySymptom->save();
+    public function actionApprove($id){
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->status = 'Approved';
+            $model->save();
+
+            return $this->redirect(['all']);
+        } else {
+            $doctors = User::find()->where(['role' => 'doctor'])->asArray()->all();
+
+            return $this->render('approve', [
+                'model' => $model,
+                'doctors' => $doctors,
+            ]);
         }
     }
 }
