@@ -312,7 +312,7 @@ class SiteController extends Controller
         if($model->load(Yii::$app->request->post())){
             $model->patient_id = Yii::$app->user->id;
             $model->status = 'Pending';
-            $model->date_time = time();
+            $model->date_time = strtotime($model->day);
             $model->save();
 
             return $this->redirect(Url::to(['my-consultations']));

@@ -25,16 +25,17 @@ use yii\helpers\Url;
                         <tr>
                             <th>Appointment Day</th>
                             <th>Status</th>
-                            <th>Created On</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($consultations AS $consultation) { ?>
                                 <tr>
-                                    <td><h6 class="text-capitalize"><?= $consultation['day']; ?> </h6></td>
+                                    <td><h6 class="text-capitalize">
+                                            <?= date('l, j M, Y',$consultation['date_time']); ?>
+                                        </h6></td>
                                     <td><?= $consultation['status']; ?> </td>
-                                    <td><?= date('m/d/Y',$consultation['date_time']); ?> </td>
+
                                     <td>
                                         <a href='<?= Url::to(['site/view-consultation', 'id' => $consultation['consultation_id']]); ?>' class='btn btn-warning'>
                                             <i class='fa fa-eye'></i> View Details

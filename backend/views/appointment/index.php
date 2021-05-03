@@ -20,9 +20,8 @@ use yii\helpers\Html;
             <thead>
             <tr>
                 <th>Patient Name</th>
-                <th>Status</th>
                 <th>Appointment Day</th>
-                <th>Created on</th>
+                <th>Status</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -31,9 +30,8 @@ use yii\helpers\Html;
             <?php foreach ($appointments AS $appointment) { ?>
                 <tr>
                     <td> <?= \common\models\User::find()->where(['id' =>$appointment['patient_id']])->one()->fullname; ?>  </td>
+                    <td> <?= date('l, j M, Y',$appointment['date_time']); ?> </td>
                     <td> <?= $appointment['status']; ?>  </td>
-                    <td class="text-capitalize"> <?= $appointment['day']; ?>  </td>
-                    <td> <?= date('m/d/Y',$appointment['date_time']); ?> </td>
                     <td>
                         <a href='<?= Url::to(['appointment/update', 'id' => $appointment['consultation_id']]); ?>' class='btn btn-default'>
                             <i class='fa fa-pencil'></i> Edit

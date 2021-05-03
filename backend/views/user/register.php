@@ -39,9 +39,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 </td>
                 <td>
                     <?= $form->field($model, 'password_reset_token')->widget(\yii\jui\DatePicker::classname(), [
-                        //'language' => 'ru',
-                        //'dateFormat' => 'yyyy-MM-dd',
-                    ]) ?>
+                        //'language' => 'en',
+                        //'dateFormat' => 'php:DD,j M, Y',
+                        'options' => [
+                                'class' => 'form-control'
+                        ],
+                        'clientOptions' => [
+                            //'format' => 'L',
+                            //'minDate' => \Yii::$app->formatter->asDate(time()),
+                            'maxDate' => \Yii::$app->formatter->asDate(time())
+                        ],
+                    ])->label('Date of Birth') ?>
 
                 </td>
 
