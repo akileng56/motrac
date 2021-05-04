@@ -13,6 +13,7 @@ use yii\filters\VerbFilter;
 use common\models\HelperMethods;
 use frontend\models\Consultation;
 use yii\filters\AccessControl;
+use frontend\models\Diagnosis;
 
 /**
  * SpecialityController implements the CRUD actions for Speciality model.
@@ -168,5 +169,29 @@ class AppointmentController extends Controller
                 'doctors' => $doctors,
             ]);
         }
+    }
+
+    public function actionDetails($id){
+        $consultation = Consultation::findOne($id);
+        $diagnosis = Diagnosis::find()->where(['consultation_id'=>$id])->one();
+        $patient = User::findOne($consultation->patient_id);
+
+        return $this->render('details',[
+            'diagnosis' => $diagnosis,
+            'patient' => $patient,
+            'consultation' => $consultation
+        ]);
+    }
+
+    public function actionPrint($id){
+        $consultation = Consultation::findOne($id);
+        $diagnosis = Diagnosis::find()->where(['consultation_id'=>$id])->one();
+        $patient = User::findOne($consultation->patient_id);
+
+        return $this->render('details',[
+            'diagnosis' => $diagnosis,
+            'patient' => $patient,
+            'consultation' => $consultation
+        ]);
     }
 }

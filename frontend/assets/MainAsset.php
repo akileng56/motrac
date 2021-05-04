@@ -34,6 +34,15 @@ class MainAsset extends AssetBundle {
         'plainwhite/js/sticky-kit.min.js',
         'plainwhite/js/custom.min.js',
         'plainwhite/js/jQuery.style.switcher.js',
+        'backend/datatables/js/jquery.dataTables.min.js',
+        'backend/datatables/js/dataTables.buttons.min.js',
+        'backend/datatables/js/buttons.flash.min.js',
+        'backend/datatables/js/jszip.min.js',
+        'backend/datatables/js/pdfmake.min.js',
+        'backend/datatables/js/vfs_fonts.js',
+        'backend/datatables/js/buttons.html5.min.js',
+        'backend/datatables/js/buttons.print.min.js',
+        'backend/js/helptool.js',
     ];
     public $depends = [
         'yii\web\YiiAsset'

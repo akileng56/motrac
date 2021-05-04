@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <td class="text-capitalize"> <?= $consultation['day']; ?>  </td>
                         <td> <?= date('m/d/Y',$consultation['date_time']); ?> </td>
                         <td>
-                            <a href='<?= Url::to(['appointment/update', 'id' => $consultation['consultation_id']]); ?>' class='btn btn-default'>
+                            <a href='<?= Url::to(['patient/details', 'id' => $consultation['consultation_id']]); ?>' class='btn btn-default'>
                                 <i class='fa fa-eye'></i> View Details
                             </a>
                         </td>

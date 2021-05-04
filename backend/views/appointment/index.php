@@ -42,7 +42,11 @@ use yii\helpers\Html;
                         <a href='<?= Url::to(['appointment/approve', 'id' => $appointment['consultation_id']]); ?>' class='btn btn-warning'>
                             <i class='fa fa-check'></i> Approve
                         </a>
-                        <?php } ?>
+                        <?php } else { ?>
+                            <a href='<?= Url::to(['appointment/details', 'id' => $appointment['consultation_id']]); ?>' class='btn btn-success'>
+                                <i class='fa fa-eye'></i> View Details
+                            </a>
+                        <?php }  ?>
                     </td>
                 </tr>
             <?php } ?>

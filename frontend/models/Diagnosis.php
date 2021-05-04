@@ -42,8 +42,8 @@ class Diagnosis extends \yii\db\ActiveRecord
         return [
             'diagnosis_id' => 'Diagnosis ID',
             'consultation_id' => 'Consultation ID',
-            'diagnosis' => 'Diagnosis',
-            'advise' => 'Advise',
+            'diagnosis' => 'Doctor\'s Diagnosis',
+            'advise' => 'Recommendations',
         ];
     }
 }

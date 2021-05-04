@@ -52,7 +52,7 @@ class SignupForm extends Model {
         $user->setAttribute('fullname', $this->fullname);
         $user->setAttribute('role', $role);
         $user->setAttribute('created_at', time());
-        //$user->setAttribute('dob', strtotime($this->dob));
+        $user->setAttribute('dob', $this->dob);
         $user->setAttribute('gender',$this->gender);
         $user->setPassword($this->password);
         $user->generateAuthKey();

@@ -103,7 +103,7 @@ class SiteController extends Controller
             $page = "";
             switch ($type) {
                 case "doctor":
-                    $page = Url::to(['doctor/schedule']);
+                    $page = Url::to(['doctor/pending-consultations']);
                     break;
                 default:
                     $page = Url::to(['my-consultations']);
@@ -221,6 +221,7 @@ class SiteController extends Controller
         $model = new SignupForm();
 
         if ($model->load(Yii::$app->request->post())) {
+            $model->dob = time();
             if ($user = $model->signup('patient')) {
                 Yii::$app->session->setFlash('success', 'Account created successfully...');
                 $this->goHome();
