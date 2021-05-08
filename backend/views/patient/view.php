@@ -31,22 +31,22 @@ $this->params['breadcrumbs'][] = $this->title;
             <table class="table table-striped qwikmed-table" id="records">
                 <thead>
                 <tr>
-                    <th>Status</th>
                     <th>Appointment Day</th>
-                    <th>Created on</th>
+                    <th>Status</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($consultations AS $consultation) { ?>
                     <tr>
+                        <td> <?= date('l, j M, Y',$consultation['date_time']); ?> </td>
                         <td> <?= $consultation['status']; ?>  </td>
-                        <td class="text-capitalize"> <?= $consultation['day']; ?>  </td>
-                        <td> <?= date('m/d/Y',$consultation['date_time']); ?> </td>
                         <td>
-                            <a href='<?= Url::to(['patient/details', 'id' => $consultation['consultation_id']]); ?>' class='btn btn-default'>
+                            <?php if($consultation['status'] == 'Completed') {?>
+                            <a href='<?= Url::to(['appointment/details', 'id' => $consultation['consultation_id']]); ?>' class='btn btn-default'>
                                 <i class='fa fa-eye'></i> View Details
                             </a>
+                            <?php }?>
                         </td>
                     </tr>
                 <?php } ?>
