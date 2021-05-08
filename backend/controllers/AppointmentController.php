@@ -14,6 +14,7 @@ use common\models\HelperMethods;
 use frontend\models\Consultation;
 use yii\filters\AccessControl;
 use frontend\models\Diagnosis;
+use Mpdf\Mpdf;
 
 /**
  * SpecialityController implements the CRUD actions for Speciality model.
@@ -187,11 +188,58 @@ class AppointmentController extends Controller
         $consultation = Consultation::findOne($id);
         $diagnosis = Diagnosis::find()->where(['consultation_id'=>$id])->one();
         $patient = User::findOne($consultation->patient_id);
+        $doctor = User::findOne($consultation->doctor_id);
 
-        return $this->render('details',[
-            'diagnosis' => $diagnosis,
-            'patient' => $patient,
-            'consultation' => $consultation
-        ]);
+        $report = new Mpdf();
+        $report->shrink_tables_to_fit = 1;
+        $report->use_kwt = true;
+
+        $html = '
+                
+        <h3 align="center" >MUTYABA ORTHOPAEDIC & TRAUMA CLINIC</h3>
+        <h4 align="center" >NATIONAL INSURANCE BUILDING (NIC)</h4>
+        <h4 align="center" >PLOT 3 PILKINGTON ROAD, GROUND FLOOR</h4>
+        <h5 align="center">P.O BOX 127 ENTEBBE - UGANDA</h5>
+        <h5 align="center">TEL: 0772 405 462</h5>
+        <hr class="line"/>
+        <br><br>
+        Date:  '.date('l, j M, Y',time()).'
+        <br><br>
+        
+        <div>           
+            <span class="heading">Name: </span><span>'.$patient->fullname.'</span>
+            &emsp;&emsp;&emsp;&emsp;
+            <span class="heading">Gender: </span><span>'.$patient->gender.'</span> 
+            &emsp;&emsp;&emsp;&emsp;
+            <span class="heading">DOB: </span><span>'.date('j M, Y',$patient->dob).'</span>            
+        </div>       
+                
+        <br>
+        <div class="heading"> Doctor\'s Diagnosis: </div>      
+        <div>'.$diagnosis->diagnosis.'</div>
+        
+        <br>
+        <div class="heading"> Recommendations: </div>      
+        <div>'.$diagnosis->advise.'</div>
+        
+         <br><br><br>
+         Consultant Orthopaedic Surgeon <br> <br>
+         <span class="doc_bold">'.$doctor->fullname.' </span> <br><br>
+         ........................................................
+          ';
+
+        $stylesheet2 = file_get_contents('./../html/app/css/bootstrap.min.css');
+        $report->WriteHTML($stylesheet2,1);
+
+        $stylesheet = file_get_contents('./../html/app/css/report.css');
+        $report->WriteHTML($stylesheet,1);
+
+        $report->WriteHTML($html);
+        $report->SetFont('maiandra');
+
+        $fileName = $patient->fullname.'report'.Date('YmdGis').'.pdf';
+        $report->Output($fileName,'D');
+        $report->Output();
+
     }
 }
