@@ -30,13 +30,14 @@ use yii\helpers\Url;
                     <span>PATIENTS</span>
                 </a>
             </li>
+            <hr>
             <li><a href="<?= Url::to(['speciality/all']); ?>" title="Specialities">
-                    <i class="fa fa-list"></i>
+                    <i class="fa fa-list-alt"></i>
                     <span>SPECIALITIES</span>
                 </a>
             </li>
             <li><a href="<?= Url::to(['fees/all']); ?>" title="Fees">
-                    <i class="fa fa-list"></i>
+                    <i class="fa fa-money"></i>
                     <span>CONSULTATION FEES</span>
                 </a>
             </li>

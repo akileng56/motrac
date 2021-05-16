@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\Fees;
 use backend\models\SpecialitySymptom;
 use backend\models\Symptom;
 use common\models\User;
@@ -164,10 +165,16 @@ class AppointmentController extends Controller
             return $this->redirect(['all']);
         } else {
             $doctors = User::find()->where(['role' => 'doctor'])->asArray()->all();
+            $patient = User::findOne($model->patient_id);
+            $speciality = Speciality::findOne($model->speciality_id);
+            $fees = Fees::find()->where(['specialty_id'=>$speciality->speciality_id])->asArray()->all();
 
             return $this->render('approve', [
                 'model' => $model,
                 'doctors' => $doctors,
+                'patient' => $patient,
+                'speciality' => $speciality,
+                'fees' => $fees
             ]);
         }
     }

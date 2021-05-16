@@ -22,6 +22,7 @@ use yii\helpers\Html;
                 <th>Speciality No</th>
                 <th>Name</th>
                 <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -31,7 +32,12 @@ use yii\helpers\Html;
                     <td> <?= $speciality['name']; ?>  </td>
                     <td>
                         <a href='<?= Url::to(['speciality/update', 'id' => $speciality['speciality_id']]); ?>' class='btn btn-default'>
-                            <i class='fa fa-pencil'></i> Edit
+                            <i class='fa fa-pencil'></i> Edit Details
+                        </a>
+                    </td>
+                    <td>
+                        <a href='<?= Url::to(['speciality/view', 'id' => $speciality['speciality_id']]); ?>' class='btn btn-warning'>
+                            <i class='fa fa-eye'></i> View Details
                         </a>
                     </td>
                 </tr>

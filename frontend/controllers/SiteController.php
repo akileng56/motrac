@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use backend\models\Doctor;
+use backend\models\Fees;
 use backend\models\Speciality;
 use frontend\models\Consultation;
 use Yii;
@@ -320,8 +321,13 @@ class SiteController extends Controller
 
             return $this->redirect(Url::to(['my-consultations']));
         } else {
+            $specialities = Speciality::find()->asArray()->all();
+            $fees = Fees::find()->asArray()->all();
+
             return $this->render('appointment', [
-                'model' => $model
+                'model' => $model,
+                'specialities' => $specialities,
+                'fees' => $fees
             ]);
         }
     }

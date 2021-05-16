@@ -7,16 +7,16 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\Symptom */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Symptoms', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Consultation Fees', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="symptom-view">
+<div class="fees-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->symptom_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->symptom_id], [
+        <?= Html::a('Update', ['update', 'id' => $model->fees_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->fees_id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -28,8 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'symptom_id',
+            'fees_id',
             'name',
+            'amount'
         ],
     ]) ?>
 

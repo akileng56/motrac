@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\models\Fees;
+use backend\models\Speciality;
 use Yii;
 use backend\models\Symptom;
 use yii\data\ActiveDataProvider;
@@ -12,7 +14,7 @@ use yii\filters\VerbFilter;
 /**
  * SymptomController implements the CRUD actions for Symptom model.
  */
-class SymptomController extends Controller
+class FeesController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,15 +32,15 @@ class SymptomController extends Controller
     }
 
     /**
-     * Lists all Symptom models.
+     * Lists all Fees models.
      * @return mixed
      */
     public function actionAll()
     {
-        $symptoms = Symptom::find()->asArray()->all();
+        $fees = Fees::find()->asArray()->all();
 
         return $this->render('index', [
-            'symptoms' => $symptoms,
+            'fees' => $fees,
         ]);
     }
 
@@ -61,13 +63,15 @@ class SymptomController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Symptom();
+        $model = new Fees();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['all']);
         } else {
+            $specialities = Speciality::find()->asArray()->all();
             return $this->render('create', [
                 'model' => $model,
+                'specialities' => $specialities
             ]);
         }
     }
@@ -85,8 +89,10 @@ class SymptomController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['all']);
         } else {
+            $specialities = Speciality::find()->asArray()->all();
             return $this->render('update', [
                 'model' => $model,
+                'specialities' => $specialities
             ]);
         }
     }
@@ -113,7 +119,7 @@ class SymptomController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Symptom::findOne($id)) !== null) {
+        if (($model = Fees::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
