@@ -37,9 +37,15 @@ use yii\helpers\Url;
                                     <td><?= $consultation['status']; ?> </td>
 
                                     <td>
+                                        <?php if($consultation['status'] != 'Pending') { ?>
                                         <a href='<?= Url::to(['site/view-consultation', 'id' => $consultation['consultation_id']]); ?>' class='btn btn-warning'>
                                             <i class='fa fa-eye'></i> View Details
                                         </a>
+                                        <?php } else if($consultation['status']== 'Pending') { ?>
+                                            <a href='<?= Url::to(['site/edit', 'id' => $consultation['consultation_id']]); ?>' class='btn btn-default'>
+                                                <i class='fa fa-pencil'></i> Edit Details
+                                            </a>
+                                        <?php }?>
                                     </td>
                                 </tr>
                             <?php } ?>

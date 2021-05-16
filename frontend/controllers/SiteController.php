@@ -39,8 +39,8 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'login', 'home','signin', 'signup', 'logout','register','newmembership','membership',
-                            'specialities','family','my-consultations','partners','about','appointment','blog','contact','cancel',
+                        'actions' => ['index', 'login', 'home','signin', 'signup', 'logout','register','newmembership','view-consultation',
+                            'specialities','edit','my-consultations','partners','about','appointment','blog','contact','cancel',
                             'doctors','search','error','request-password-reset',
                             'reset-password' ],
                         'allow' => true
@@ -251,12 +251,11 @@ class SiteController extends Controller
 
     }
 
-    public function actionMembership()
+    public function actionViewConsultation($id)
     {
-        $members = Membership::find()->where(['membership_status'=>'Approved'])->asArray()->all();
-
-        return $this->render('membership', [
-            'members' => $members,
+        $model = Consultation::findOne($id);
+        return $this->render('view-consultation', [
+            'model' => $model,
         ]);
     }
 
@@ -292,9 +291,12 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionFamily()
+    public function actionEdit($id)
     {
-        return $this->render('family');
+        $model = Consultation::findOne($id);
+        return $this->render('edit',[
+            'model' => $model
+        ]);
     }
 
     public function actionMyConsultations()
